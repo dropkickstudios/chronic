@@ -7,6 +7,11 @@ class TestDaylightSavings < TestCase
     @end_daylight_savings = Time.local(2008, 11, 2, 5, 0, 0, 0)
   end
 
+  def test_parse_noon_correctly
+    c = Chronic::RepeaterTime.new("12:30")
+    assert_equal 12, Chronic.parse("12:30 PM", :now => @begin_daylight_savings).hour
+  end
+  
   def test_begin_past
     # ambiguous - resolve to last night
     t = Chronic::RepeaterTime.new('900')
